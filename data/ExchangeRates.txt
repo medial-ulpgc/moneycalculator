@@ -1,0 +1,4 @@
+From;To;Rate
+USD;EUR;0.86
+USD;GBP;0.75
+EUR;GBP;0.87
