@@ -1,4 +1,5 @@
- package moneycalculator.ui.swing;
+package moneycalculator.ui.swing;
+
 import moneycalculator.ui.MoneyDisplay;
 import moneycalculator.ui.MoneyDialog;
 import java.awt.BorderLayout;
@@ -10,33 +11,36 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
+import moneycalculator.persistence.ExchangeRateLoader;
 
-public final class MoneyCalculatorFrame extends JFrame{
+public final class MoneyCalculatorFrame extends JFrame {
+
     private final Currency[] currencies;
     private MoneyDialog moneyDialog;
     private MoneyDisplay moneyDisplay;
-    
-    public MoneyCalculatorFrame (Currency[] currencies){
+    private ExchangeRateLoader exchangeRateLoader;
+
+    public MoneyCalculatorFrame(Currency[] currencies, ExchangeRateLoader exchangeRateLoader) {
         this.currencies = currencies;
-        
-        
+
         this.setTitle("Money Calculator");
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        this.add (moneyDialog(), BorderLayout.NORTH);
-        this.add (toolbar(), BorderLayout.CENTER);
+        this.exchangeRateLoader = exchangeRateLoader;
+        this.add(moneyDialog(), BorderLayout.NORTH);
+        this.add(toolbar(), BorderLayout.CENTER);
         this.add(moneyDisplay(), BorderLayout.SOUTH);
         this.pack();
         this.setVisible(true);
+
     }
 
     private Component moneyDialog() {
-        
-        SwingMoneyDialog swingMoneyDialog = new SwingMoneyDialog(currencies);
-        moneyDialog = swingMoneyDialog ;
-        return swingMoneyDialog ;
+
+        SwingMoneyDialog swingMoneyDialog = new SwingMoneyDialog(currencies, exchangeRateLoader);
+        moneyDialog = swingMoneyDialog;
+        return swingMoneyDialog;
     }
 
     private Component toolbar() {
@@ -54,17 +58,16 @@ public final class MoneyCalculatorFrame extends JFrame{
     private ActionListener calculate() {
         return (ActionEvent e) -> {
             Money money = moneyDialog.get();
-            moneyDisplay.display(new Money(99, new Currency("Dollar","USD","$")));
+            moneyDisplay.display(money);
             this.pack();
-            
+
         };
-        
-        
+
     }
 
     private Component moneyDisplay() {
         SwingMoneyDisplay swingMoneyDisplay = new SwingMoneyDisplay();
-        moneyDisplay=swingMoneyDisplay;
+        moneyDisplay = swingMoneyDisplay;
         return swingMoneyDisplay;
     }
 

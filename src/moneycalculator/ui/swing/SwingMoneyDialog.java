@@ -3,6 +3,7 @@ package moneycalculator.ui.swing;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -15,21 +16,29 @@ import javax.swing.text.Document;
 import moneycalculator.ui.MoneyDialog;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
+import moneycalculator.persistence.ExchangeRateLoader;
 
 public class SwingMoneyDialog extends JPanel implements MoneyDialog {
     private final Currency[] currencies;
-    private String amount;
-    private Currency currency;
+    private Double amount;
+    private Currency from;
+    private Currency to;
+    private final ExchangeRateLoader exchangeRateLoader;
 
-    public SwingMoneyDialog(Currency[] currencies) {
+    SwingMoneyDialog(Currency[] currencies, ExchangeRateLoader exchangeRateLoader) {
         this.currencies = currencies;
         this.add(amount());
-        this.add(currency());
+        this.add(currencyComponent((currency)->this.from=currency));
+        this.add(currencyComponent((currency)->this.to=currency));
+        this.exchangeRateLoader = exchangeRateLoader;
     }
+
+    
     
     @Override
     public Money get() {
-        return new Money (0, currency);
+        double exchangeRate = exchangeRateLoader.getExchangeRate(from, to);
+        return new Money (amount*exchangeRate, to);
     }
     
     
@@ -38,21 +47,22 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
         JTextField textField = new JTextField("100");
         textField.setColumns(10);
         textField.getDocument().addDocumentListener(amountChanged());
+        amount= Double.parseDouble(textField.getText());
         return textField;
          
     }
 
-    private Component currency() {
+    private Component currencyComponent(Consumer<Currency> saveSelection) {
         JComboBox comboBox = new JComboBox(currencies);
-        comboBox.addItemListener(currencyChanged());
-        currency = (Currency) comboBox.getSelectedItem();
+        comboBox.addItemListener(currencyChanged(saveSelection));
+        saveSelection.accept((Currency) comboBox.getSelectedItem());
         return comboBox;
     }
 
-    private ItemListener currencyChanged() {
+    private ItemListener currencyChanged(Consumer<Currency> saveSelection) {
         return (ItemEvent e) -> {
             if(e.getStateChange()==ItemEvent.SELECTED){
-                currency = (Currency)e.getItem();
+                saveSelection.accept((Currency)e.getItem());
             }
         };
     }
@@ -80,7 +90,7 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
             private void amountChanged(Document document) {
                 try {
                     
-                    amount = document.getText(0, document.getLength());
+                    amount = Double.parseDouble( document.getText(0, document.getLength()));
                 } catch (BadLocationException ex) {
                     Logger.getLogger(SwingMoneyDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }

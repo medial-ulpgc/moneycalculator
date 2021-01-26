@@ -1,4 +1,4 @@
-package moneycalculator.persistence.file;
+package moneycalculator.persistence;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import moneycalculator.persistence.file.FileExchangeRateLoader;
 
 public class FileSystemHandler {
 

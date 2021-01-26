@@ -1,5 +1,6 @@
 package moneycalculator.persistence.file;
 
+import moneycalculator.persistence.FileSystemHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ public class FileExchangeRateLoader implements ExchangeRateLoader {
 
     @Override
     public double getExchangeRate(Currency from, Currency to) {
+        if(from.equals(to))return 1;
         return Stream.concat(directExchangeRate(from, to), inverseExchangeRate(from, to))
                 .findAny()
                 .orElseThrow(() -> new ExchangeRateNotFoundException(from + "=>" + to)).getRate();

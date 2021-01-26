@@ -1,5 +1,6 @@
 package moneycalculator.persistence.file;
 
+import moneycalculator.persistence.FileSystemHandler;
 import java.util.List;
 import java.util.stream.Collectors;
 import moneycalculator.persistence.CurrencyListLoader;
