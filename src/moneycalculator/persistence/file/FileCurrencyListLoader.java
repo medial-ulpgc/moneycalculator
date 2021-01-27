@@ -1,9 +1,8 @@
 package moneycalculator.persistence.file;
 
-import moneycalculator.persistence.FileSystemHandler;
 import java.util.List;
 import java.util.stream.Collectors;
-import moneycalculator.persistence.CurrencyListLoader;
+import moneycalculator.view.CurrencyListLoader;
 import java.util.stream.Stream;
 import moneycalculator.model.Currency;
 

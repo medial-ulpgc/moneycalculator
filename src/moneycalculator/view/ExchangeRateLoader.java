@@ -1,4 +1,4 @@
-package moneycalculator.persistence;
+package moneycalculator.view;
 
 import moneycalculator.model.Currency;
 

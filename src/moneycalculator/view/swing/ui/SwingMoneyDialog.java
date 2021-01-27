@@ -1,4 +1,4 @@
-package moneycalculator.ui.swing;
+package moneycalculator.view.swing.ui;
 
 import java.awt.Component;
 import java.awt.event.ItemEvent;
@@ -13,35 +13,31 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import moneycalculator.ui.MoneyDialog;
+import moneycalculator.view.MoneyDialog;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.persistence.ExchangeRateLoader;
+import moneycalculator.view.ExchangeRateLoader;
 
-public class SwingMoneyDialog extends JPanel implements MoneyDialog {
+public final class SwingMoneyDialog extends JPanel implements MoneyDialog {
     private final Currency[] currencies;
     private Double amount;
     private Currency from;
     private Currency to;
     private final ExchangeRateLoader exchangeRateLoader;
 
-    SwingMoneyDialog(Currency[] currencies, ExchangeRateLoader exchangeRateLoader) {
+    public SwingMoneyDialog(Currency[] currencies, ExchangeRateLoader exchangeRateLoader) {
         this.currencies = currencies;
         this.add(amount());
         this.add(currencyComponent((currency)->this.from=currency));
         this.add(currencyComponent((currency)->this.to=currency));
         this.exchangeRateLoader = exchangeRateLoader;
     }
-
-    
     
     @Override
     public Money get() {
         double exchangeRate = exchangeRateLoader.getExchangeRate(from, to);
         return new Money (amount*exchangeRate, to);
     }
-    
-    
 
     private Component amount() {
         JTextField textField = new JTextField("100");

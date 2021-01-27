@@ -1,11 +1,8 @@
 package moneycalculator.app.swing;
 
-import java.util.Arrays;
-import moneycalculator.app.cmd.file.CurrencyNotFoundException;
 import moneycalculator.model.Currency;
 import moneycalculator.persistence.file.FileCurrencyListLoader;
 import moneycalculator.persistence.file.FileExchangeRateLoader;
-import moneycalculator.ui.swing.MoneyCalculatorFrame;
 
 public class Main {
 
@@ -32,12 +29,5 @@ public class Main {
     private void input() {
         MoneyCalculatorFrame mcf = new MoneyCalculatorFrame(currencies, exchangeRateLoader);
 
-    }
-
-    private Currency fetchCurrency(String currencyCode) {
-        return Arrays.stream(currencies)
-                .filter(currency -> currency.getCode().equals(currencyCode))
-                .findAny()
-                .orElseThrow(() -> new CurrencyNotFoundException(currencyCode));
     }
 }

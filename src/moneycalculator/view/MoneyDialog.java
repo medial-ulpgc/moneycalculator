@@ -1,5 +1,5 @@
 
-package moneycalculator.ui;
+package moneycalculator.view;
 
 import moneycalculator.model.Money;
 

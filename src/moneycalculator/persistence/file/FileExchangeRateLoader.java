@@ -1,13 +1,12 @@
 package moneycalculator.persistence.file;
 
-import moneycalculator.persistence.FileSystemHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import moneycalculator.model.Currency;
 import moneycalculator.model.ExchangeRate;
-import moneycalculator.persistence.ExchangeRateLoader;
+import moneycalculator.view.ExchangeRateLoader;
 
 public class FileExchangeRateLoader implements ExchangeRateLoader {
 
