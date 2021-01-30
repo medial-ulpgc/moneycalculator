@@ -36,7 +36,9 @@ public class Main {
     }
 
     private void input() {
-        //MoneyCalculatorFrame mcf = new MoneyCalculatorFrame(new Currency[]{});
+
+        System.out.println("Divisas disponibles para el cálculo:");
+        System.out.println(Arrays.toString(currencies));
         Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce el código de la divisa origen: ");
         inputCurrency = scanner.next();
