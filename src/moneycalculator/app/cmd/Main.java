@@ -1,10 +1,10 @@
-package moneycalculator.app.cmd.file;
+package moneycalculator.app.cmd;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import moneycalculator.model.Currency;
-import moneycalculator.persistence.file.FileCurrencyListLoader;
-import moneycalculator.persistence.file.FileExchangeRateLoader;
+import moneycalculator.app.persistence.file.FileCurrencyListLoader;
+import moneycalculator.app.persistence.file.FileExchangeRateLoader;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package moneycalculator.persistence.file;
+package moneycalculator.app.persistence.file;
 
 import java.util.List;
 import java.util.stream.Collectors;

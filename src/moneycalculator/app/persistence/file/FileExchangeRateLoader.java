@@ -1,4 +1,4 @@
-package moneycalculator.persistence.file;
+package moneycalculator.app.persistence.file;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class FileExchangeRateLoader implements ExchangeRateLoader {
 
     public FileExchangeRateLoader(String fileName, boolean ignoreFirstLine) {
         this.fileName = fileName;
-        exchangeRates = new ArrayList();
+        exchangeRates = new ArrayList<>();
         this.ignoreFirstLine = ignoreFirstLine;
     }
 

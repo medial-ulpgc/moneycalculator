@@ -1,4 +1,4 @@
-package moneycalculator.view.swing.ui;
+package moneycalculator.app.swing;
 
 import java.awt.Component;
 import java.util.ArrayList;
